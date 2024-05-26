@@ -2,6 +2,7 @@ import "./style.css";
 import {
   initializeAttachmentsFeature,
   getAttachmentsInput,
+  isAttachmentsFeatureEnabled,
 } from "./drop-files";
 
 const postComment = async (email, subject, message, files) => {
@@ -36,7 +37,11 @@ function initializeApplication() {
     postComment(emailValue, subjectValue, messageValue, files);
   });
 
-  initializeAttachmentsFeature();
+  document.querySelector("#attachments-field").innerHTML = ``;
+
+  if (isAttachmentsFeatureEnabled()) {
+    initializeAttachmentsFeature();
+  }
 }
 
 initializeApplication();
