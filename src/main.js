@@ -4,6 +4,7 @@ import {
   getAttachmentsInput,
   isAttachmentsFeatureEnabled,
 } from "./drop-files";
+import { getLDClient } from "./launch-darkly-client";
 
 const postComment = async (email, subject, message, files) => {
   const formData = new FormData();
@@ -44,4 +45,4 @@ function initializeApplication() {
   }
 }
 
-initializeApplication();
+getLDClient().on("ready", initializeApplication);

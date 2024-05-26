@@ -1,3 +1,5 @@
+import { getLDClient } from "./launch-darkly-client";
+
 export const getAttachmentsInput = () => document.querySelector("#attachments");
 const getDropArea = () => document.querySelector(".drop-area");
 
@@ -21,5 +23,5 @@ export function initializeAttachmentsFeature() {
 }
 
 export function isAttachmentsFeatureEnabled() {
-  return true;
+  return getLDClient().variation("attachments.enabled.test", false);
 }
