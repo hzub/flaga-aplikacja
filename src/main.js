@@ -1,10 +1,17 @@
 import "./style.css";
+import {
+  initializeAttachmentsFeature,
+  getAttachmentsInput,
+} from "./drop-files";
 
-const postComment = async (email, subject, message) => {
+const postComment = async (email, subject, message, files) => {
   const formData = new FormData();
   formData.append("email", email);
   formData.append("subject", subject);
   formData.append("message", message);
+  files.forEach((file) => {
+    formData.append("attachments", file);
+  });
 
   console.log("Data sent to backend: ", Object.fromEntries(formData.entries()));
 
@@ -24,9 +31,12 @@ function initializeApplication() {
     const emailValue = document.querySelector("#email").value;
     const subjectValue = document.querySelector("#subject").value;
     const messageValue = document.querySelector("#message").value;
+    const files = Array.from(getAttachmentsInput().files);
 
-    postComment(emailValue, subjectValue, messageValue);
+    postComment(emailValue, subjectValue, messageValue, files);
   });
+
+  initializeAttachmentsFeature();
 }
 
 initializeApplication();
